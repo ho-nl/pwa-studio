@@ -3,19 +3,20 @@ import { createPortal } from 'react-dom';
 import { node, object } from 'prop-types';
 
 const Modal = ({ children, container }) => {
-    if (typeof window === 'undefined') {
-        return null
-    } else {
-        const target = useMemo(
-            () =>
-                container instanceof HTMLElement
+    const target = useMemo(
+        () => {
+            if (typeof window === 'undefined') {
+                return null;
+            } else {
+                return container instanceof HTMLElement
                     ? container
-                    : document.getElementById('root'),
-            [container]
-        );
-    
-        return createPortal(children, target);
-    }
+                    : document.getElementById('root')
+            }
+        },
+        [container]
+    );
+
+    return target ? createPortal(children, target) : null
 };
 
 export default Modal;

@@ -7,7 +7,8 @@ import actions from './actions';
 
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
-const storage = typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
+const storage =
+    typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
 
 export const signIn = credentials =>
     async function thunk(...args) {

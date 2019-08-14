@@ -1,6 +1,6 @@
 // If the root template supplies the backend URL at runtime, use it directly
 const isBrowser = typeof window !== 'undefined';
-const htmlDataset = isBrowser ? document.querySelector('html').dataset : { }
+const htmlDataset = isBrowser ? document.querySelector('html').dataset : {};
 const { imageOptimizingOrigin } = htmlDataset;
 
 // Protect against potential falsy values for `mediaBackend`.
@@ -64,8 +64,15 @@ const makeOptimizedUrl = (path, { type, width, height } = {}) => {
         }
     }
 
-    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs && isBrowser) {
-        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), window.location.origin);
+    if (
+        baseURL.href.startsWith(mediaBackend) &&
+        !useBackendForImgs &&
+        isBrowser
+    ) {
+        baseURL = new URL(
+            baseURL.href.slice(baseURL.origin.length),
+            window.location.origin
+        );
     }
 
     // Append image optimization parameters

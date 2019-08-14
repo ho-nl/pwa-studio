@@ -3,7 +3,8 @@ import { handleActions } from 'redux-actions';
 import { Util } from '@magento/peregrine';
 const { BrowserPersistence } = Util;
 
-const storage = typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
+const storage =
+    typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
 
 import actions from '../actions/user';
 

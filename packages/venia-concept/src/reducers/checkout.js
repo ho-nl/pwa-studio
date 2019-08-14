@@ -4,7 +4,8 @@ import { Util } from '@magento/peregrine';
 import actions from '../actions/checkout';
 
 const { BrowserPersistence } = Util;
-const storage = typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
+const storage =
+    typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
 
 export const name = 'checkout';
 
