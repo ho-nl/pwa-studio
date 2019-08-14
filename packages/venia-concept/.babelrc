@@ -1,0 +1,10 @@
+{
+    "presets": [
+        [
+            "@magento/peregrine",
+            {
+                "esModules": true
+            }
+        ]
+    ]
+}

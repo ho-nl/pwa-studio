@@ -3,13 +3,13 @@ import { handleActions } from 'redux-actions';
 import { Util } from '@magento/peregrine';
 const { BrowserPersistence } = Util;
 
-const storage = new BrowserPersistence();
+const storage = typeof window !== 'undefined' ? new BrowserPersistence() : undefined;
 
 import actions from '../actions/user';
 
 export const name = 'user';
 
-const isSignedIn = () => !!storage.getItem('signin_token');
+const isSignedIn = () => storage && !!storage.getItem('signin_token');
 
 const initialState = {
     currentUser: {

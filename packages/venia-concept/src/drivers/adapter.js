@@ -49,10 +49,12 @@ export default class VeniaAdapter extends Component {
     static apolloCache() {
         const cache = new InMemoryCache();
 
-        persistCache({
-            cache,
-            storage: window.localStorage
-        });
+        if (typeof window === undefined) {
+            persistCache({
+                cache,
+                storage: window.localStorage
+            });
+        }
 
         return cache;
     }

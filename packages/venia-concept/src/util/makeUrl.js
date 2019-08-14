@@ -1,6 +1,8 @@
 // If the root template supplies the backend URL at runtime, use it directly
-const htmlDataset = document.querySelector('html').dataset;
+const isBrowser = typeof window !== 'undefined';
+const htmlDataset = isBrowser ? document.querySelector('html').dataset : { }
 const { imageOptimizingOrigin } = htmlDataset;
+
 // Protect against potential falsy values for `mediaBackend`.
 let mediaBackend = htmlDataset.mediaBackend;
 if (!mediaBackend) {
@@ -51,7 +53,6 @@ const makeOptimizedUrl = (path, { type, width, height } = {}) => {
         return path;
     }
 
-    const { origin } = window.location;
     const isAbsolute = absoluteUrl.test(path);
     let baseURL = new URL(path, mediaBackend);
 
@@ -63,8 +64,8 @@ const makeOptimizedUrl = (path, { type, width, height } = {}) => {
         }
     }
 
-    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs) {
-        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), origin);
+    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs && isBrowser) {
+        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), window.location.origin);
     }
 
     // Append image optimization parameters
@@ -80,7 +81,7 @@ const makeOptimizedUrl = (path, { type, width, height } = {}) => {
 
     baseURL.search = params.toString();
 
-    if (baseURL.origin === origin) {
+    if (isBrowser && baseURL.origin === origin) {
         return baseURL.href.slice(baseURL.origin.length);
     }
 

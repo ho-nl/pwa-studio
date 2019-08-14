@@ -6,8 +6,8 @@ export const name = 'app';
 
 const initialState = {
     drawer: null,
-    hasBeenOffline: !navigator.onLine,
-    isOnline: navigator.onLine,
+    hasBeenOffline: typeof window !== 'undefined' ? !navigator.onLine : false,
+    isOnline: typeof window !== 'undefined' ? navigator.onLine : true,
     overlay: false,
     searchOpen: false,
     query: '',

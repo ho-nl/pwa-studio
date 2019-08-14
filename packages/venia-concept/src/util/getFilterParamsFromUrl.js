@@ -1,7 +1,7 @@
 import { persistentQueries } from '../shared/persistentQueries';
 
 export const getFilterParams = () => {
-    const params = new URLSearchParams(window.location.search);
+    const params = []//new URLSearchParams(window.location.search);
     let titles,
         values = [];
 
